@@ -13,18 +13,50 @@ import List, {
   ListItemText,
   ListSubheader
 } from 'material-ui/List'
-import InboxIcon from 'material-ui-icons/Inbox'
+import HighlightOffIcon from 'material-ui-icons/HighlightOff'
+import CheckCircleIcon from 'material-ui-icons/CheckCircle'
+import RemoveCircleIcon from 'material-ui-icons/RemoveCircle'
+import ErrorIcon from 'material-ui-icons/Error'
 
+const textPrefix = count => {
+  switch (count) {
+    case 0: return ('No Zones are ')
+    case 1: return ('1 Zone is ')
+    default: return (`${count} Zones are `)
+  }
+}
 
-const StatusListItem = ({text}) => (
+const OpenListItem = ({count}) => (
   <ListItem>
     <ListItemIcon>
-      <InboxIcon />
+      {
+        (count > 0) ?
+        <HighlightOffIcon style={{fill: '#cc0000'}}/> :
+        <CheckCircleIcon style={{fill: '#009933'}}/>
+      }
     </ListItemIcon>
-  <ListItemText primary={text} />
+  <ListItemText primary={`${textPrefix(count)}Open`} />
   </ListItem>
 )
-  
+
+const TroubleListItem = ({count}) => (
+  <ListItem>
+    <ListItemIcon>
+      <RemoveCircleIcon style={(count > 0) ? {fill: '#cc0000'} : {fill: '#bfbfbf'}}/>
+    </ListItemIcon>
+  <ListItemText primary={`${textPrefix(count)}in Trouble`} />
+  </ListItem>
+)
+
+const BypassListItem = ({count}) => (
+  <ListItem>
+    <ListItemIcon>
+      <ErrorIcon style={(count > 0) ? {fill: '#cc9900'} : {fill: '#bfbfbf'}}/>
+    </ListItemIcon>
+  <ListItemText primary={`${textPrefix(count)}Bypassed`} />
+  </ListItem>
+)
+
 function createStatusList({openZones, troubleZones, bypassZones, classes}) {
   const displayText = (zones, type) => {
     switch (zones) {
@@ -36,9 +68,9 @@ function createStatusList({openZones, troubleZones, bypassZones, classes}) {
   return (
     <div className={classes.root}>
       <List subheader={<ListSubheader>Zone Status Summary</ListSubheader>}>
-        <StatusListItem text={displayText(openZones,' Open')} />
-        <StatusListItem text={displayText(troubleZones,' in Trouble')} />
-        <StatusListItem text={displayText(bypassZones,' Bypassed')} />
+        <OpenListItem count={openZones} />
+        <TroubleListItem count={troubleZones} />
+        <BypassListItem count={bypassZones} />
       </List>
       <Divider />
     </div>

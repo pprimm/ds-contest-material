@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'cerebral/react'
-import {compute} from 'cerebral'
 import {state, signal, props} from 'cerebral/tags'
 
 import PropTypes from 'prop-types'
@@ -15,6 +14,7 @@ import List, {
 } from 'material-ui/List'
 
 import Switch from 'material-ui/Switch'
+import filteredZoneIds from '../../computed/filteredZoneIds'
 
 
 const ZoneListItem = connect({
@@ -36,21 +36,6 @@ const ZoneListItem = connect({
     </ListItem>
   )
 })
-
-const filterComputed = compute(
-  state`app.filter`,
-  state`zones`,
-  (filter,zones) => {
-    return Object.keys(zones).filter(id => {
-      return (
-        filter === 'all' ||
-        (filter === 'open' && zones[id].status === 'Open') ||
-        (filter === 'trouble' && zones[id].status === 'Trouble') ||
-        (filter === 'bypass' && zones[id].bypass)
-      )
-    })
-  }
-)
 
 function ZoneList({filtered,classes}) {
   return (
@@ -82,5 +67,5 @@ const zoneListStyles = theme => ({
 })
 
 export default connect({
-  filtered: filterComputed,
+  filtered: filteredZoneIds,
 }, withStyles(zoneListStyles)(ZoneList))
