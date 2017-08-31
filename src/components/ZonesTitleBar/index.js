@@ -1,4 +1,5 @@
 import React from 'react'
+import FilterTabBar from '../../components/FilterTabBar'
 
 import PropTypes from 'prop-types'
 import {
@@ -28,6 +29,7 @@ function ZonesTitleBar({backClicked,classes}) {
             Back
           </Button>
         </Toolbar>
+        <FilterTabBar />
       </AppBar>
     </div>
   )

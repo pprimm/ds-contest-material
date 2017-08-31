@@ -8,7 +8,7 @@ function dsUpdate({state, props}) {
 }
 
 function bypassPressed({deepstream, props}) {
-  console.info(props)
+  //console.info(props)
   deepstream.action(ZONE_BYPASS_EVENT,props)
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'cerebral/react'
+import {compute} from 'cerebral'
 import {state, signal, props} from 'cerebral/tags'
 
 import PropTypes from 'prop-types'
@@ -36,13 +37,27 @@ const ZoneListItem = connect({
   )
 })
 
-function ZoneList({zones,classes}) {
-  //console.info(zones)
+const filterComputed = compute(
+  state`app.filter`,
+  state`zones`,
+  (filter,zones) => {
+    return Object.keys(zones).filter(id => {
+      return (
+        filter === 'all' ||
+        (filter === 'open' && zones[id].status === 'Open') ||
+        (filter === 'trouble' && zones[id].status === 'Trouble') ||
+        (filter === 'bypass' && zones[id].bypass)
+      )
+    })
+  }
+)
+
+function ZoneList({filtered,classes}) {
   return (
     <div className={classes.root}>
       <List>
         {
-          zones.map((id) => (
+          filtered.map((id) => (
             <div key={id}>
               <ZoneListItem id={id} />
               <Divider />
@@ -67,5 +82,5 @@ const zoneListStyles = theme => ({
 })
 
 export default connect({
-  zones: state`zones.*`
+  filtered: filterComputed,
 }, withStyles(zoneListStyles)(ZoneList))

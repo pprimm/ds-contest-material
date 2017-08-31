@@ -15,24 +15,41 @@ function changePage (page, continueSequence = []) {
   ]
 }
 
+function systemPageZonesClicked({router}) {
+  router.goTo('/zones')
+}
+
 function zonesPageBackClicked({router}) {
   router.goTo('/')
 }
 
-function systemPageZonesClicked({router}) {
-  router.goTo('/zones')
+const filternames = [
+  'all',
+  'open',
+  'trouble',
+  'bypass'
+]
+
+function zonesPageTabClicked({state,props}) {
+  //console.info(props)
+  state.set('app.zoneTabIndex', props.tabIndex)
+  state.set('app.filter', filternames[props.tabIndex])
+  //set(state`app.filter`, props.tabIndex)
 }
 
 export default {
   state: {
     online: false,
-    pageRequest: 'system' // system, zones, getCode  
+    pageRequest: 'system', // system, zones, getCode
+    zoneTabIndex: 0,
+    filter: 'all'
   },
   signals: {
     dsUpdate: dsUpdate,
     systemRouted: changePage('system'),
+    systemPageZonesClicked: systemPageZonesClicked,
     zonesRouted: changePage('zones'),
     zonesPageBackClicked: zonesPageBackClicked,
-    systemPageZonesClicked: systemPageZonesClicked
+    zonesPageTabClicked: zonesPageTabClicked
   }
 }
