@@ -3,8 +3,8 @@ This project is a submission to the [deepstreamHub Contest, Sept. 2017](https://
 
 ![System Page](https://user-images.githubusercontent.com/4693314/29977696-eb7ba126-8f03-11e7-8981-8d2a6194b7b7.png)
 
-##Why is it here?
-Well, the obvious reason is that it was created as a submission to the aforementioned design contest.   But, there's a bit of background here.  I have been playing with using React/cerebral to create UX for home automation for a few months.  My original tech stack used MQTT over Web-sockets for real-time transport.  This worked pretty well because my back-end control system is MQTT driven.  However, I wanted to test an abstraction that allowed for more productivity and ease-of-design on the front-end; in other words, deepstream would be used for the front-end channel only to separate/decouple messaging.  Anyhoo, the contest gave me the opportunity (interpret: motivation) to produce a limited-scope solution to test deepstream in this scenario.
+## Why is it here?
+Well, the obvious reason is that it was created as a submission to the aforementioned design contest.   But, there's a bit of background here.  I have been playing with using React/cerebral to create UX for home automation for a few months.  My original tech stack used MQTT over Web-sockets for real-time transport.  This worked pretty well because my back-end control system is MQTT driven.  However, I wanted to test an abstraction that allowed for more productivity and ease-of-design on the front-end; in other words, deepstream would be used for the front-end channel to separate/decouple messaging.  Anyhoo, the contest gave me the opportunity (*interpret*: the motivation) to produce a limited-scope solution to test deepstream in this scenario.
 
 ## Tech Stack
  - [deepstreamHub](https://deepstreamhub.com/) & [deepstream javascript client](https://deepstreamhub.com/docs/client-js/client/) 
