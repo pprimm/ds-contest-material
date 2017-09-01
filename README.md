@@ -1,3 +1,30 @@
+## What is this?
+This project is a submission to the [deepstreamHub Contest, Sept. 2017](https://www.collaborizm.com/thread/r1lTSRXSZ).  It is an interactive mobile UI demo demonstrating how to use the deepstream JavaScript client to interact with a home security system through deepstreamHub in realtime.  The companion project is a security system simulator that demonstrates how to create a *provider* for deepstreamHub using NodeJS and the same deepstream JavaScript client.  For more, see 
+
+##Why is it here?
+Well, the obvious reason is that it was created as a submission to the aforementioned design contest.   But, there's a bit of background here.  I have been playing with using React/cerebral to create UX for home automation for a few months.  My original tech stack used MQTT over Web-sockets for real-time transport.  This worked pretty well because my back-end control system is MQTT driven.  However, I wanted to test an abstraction that allowed for more productivity and ease-of-design on the front-end; in other words, deepstream would be used for the front-end channel only to separate/decouple messaging.  Anyhoo, the contest gave me the opportunity (interpret: motivation) to produce a limited-scope solution to test deepstream in this scenario.
+
+## Tech Stack
+ - [deepstreamHub](https://deepstreamhub.com/) & [deepstream javascript client](https://deepstreamhub.com/docs/client-js/client/) 
+ - [React](https://facebook.github.io/react/)
+ - [Cerebral for React for state management, effects and routing](http://cerebraljs.com/)
+ - [Material UI](https://material-ui-1dab0.firebaseapp.com/getting-started/installation/) to ease the UI design burden
+ 
+## A Brief Architectural Overview (Commentary)
+ The concepts of React and Flux have made significant impacts on the dev community over the last few years.  Specifically, the state/action flow of Flux helped to shape our perceptions of uni-directional flow.  I wanted to solve the problem of this particular contest (Realtime Security System) with what I term "full-stack-flux"; basically, flux concept from the back-end to the front-end.  Please allow me to try and explain further.
+ 
+ The View is React; so from that standpoint, we're on-par with standard Flux.  Cerebral allows us to trigger [Signals](http://cerebraljs.com/docs/api/signal.html) from both user interaction and the back-end and then perform [Actions](http://cerebraljs.com/docs/api/action.html) that either update the local UI [State](http://cerebraljs.com/docs/api/state.html) or send the action on to the back-end for processing.  The pure UI has no idea of front-end or back-end state changes or processing, doesn't care and idealistically hold no state of its own.  The deepstreamHub provider listens for Actions ([pub-sub Events](https://deepstreamhub.com/docs/client-js/pubsub-client-event/) in deepstream) coming from the front end and/or other back-end services.  The Actions received are processed and may or may not produce a change in state ([Records](https://deepstreamhub.com/docs/client-js/datasync-record/) in deepstream).  These Record(s) changes then trigger Signals to be processed on the front-end as described above.  The flow is extremely easy to reason about.  
+
+## Possible Improvements (what I would do from here if this were a real app)
+There are many improvement that could be made to make this app better.  Improvements to structure, naming convention, etc. would be a first step.  Really, this app was slung together quickly in order to meet a deadline for contest entry.  So, here are some things I would do if this were a real app:
+
+ - Refactor React code.  Possibly add styled-components ('cause I love it).  I am not a front-end coder and not very experienced in HTML/CSS; so there is likely *A LOT* of room for improvement here.
+ - Refactor deepstream client provider by adding a deepstream cerebral module to handle interaction between the app and the deepstream client cerebral provider.  Expose core deepstream client api to the provider.
+ - Analyze refactoring the cerebral app state by investigating the effects/boundaries of separating ui specific state from device specific state.  Effects here would be very beneficial in a large app with many pages/state/user interactions.
+ - Analyze ramifications of multiple users performing multiple actions at the same time (address scaling).
+ - Improve the UX (highly subjective, but, this UX is marginal)
+ - The back-end device would be based on a real security system implementation to the API could change dramatically.
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
