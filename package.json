@@ -2,6 +2,7 @@
   "name": "ds-contest-material",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://pprimm.github.io/ds-contest-material",
   "dependencies": {
     "cerebral": "^2.0.0-beta.3",
     "deepstream.io-client-js": "^2.2.1",

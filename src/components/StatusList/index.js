@@ -58,13 +58,6 @@ const BypassListItem = ({count}) => (
 )
 
 function createStatusList({openZones, troubleZones, bypassZones, classes}) {
-  const displayText = (zones, type) => {
-    switch (zones) {
-      case 0: return (`No Zones are ${type}`)
-      case 1: return (`1 Zone is ${type}`)
-      default: return (`${zones} Zones are ${type}`)
-    }
-  }
   return (
     <div className={classes.root}>
       <List subheader={<ListSubheader>Zone Status Summary</ListSubheader>}>
