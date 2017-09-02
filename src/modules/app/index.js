@@ -1,11 +1,20 @@
 import {set} from 'cerebral/operators'
 import {state} from 'cerebral/tags'
 
-function dsUpdate({state, props}) {
+function dsUpdate({router, state, props}) {
   console.info(props)
   if (props.hasOwnProperty('online')) {
-    //state.set('app.online', props.online)
+    state.set('app.online', props.online)
+    if (props.online) {
+      router.goTo('/system')
+    } else {
+      router.goTo('/')
+    }
   }
+}
+
+function loginClicked({deepstream, props}) {
+  deepstream.login(props)
 }
 
 function changePage (page, continueSequence = []) {
@@ -20,7 +29,7 @@ function systemPageZonesClicked({router}) {
 }
 
 function zonesPageBackClicked({router}) {
-  router.goTo('/')
+  router.goTo('/system')
 }
 
 const filternames = [
@@ -40,12 +49,14 @@ function zonesPageTabClicked({state,props}) {
 export default {
   state: {
     online: false,
-    pageRequest: 'system', // system, zones, getCode
+    pageRequest: 'login', // system, zones, getCode
     zoneTabIndex: 0,
     filter: 'all'
   },
   signals: {
     dsUpdate: dsUpdate,
+    loginClicked: loginClicked,
+    loginRouted: changePage('login'),
     systemRouted: changePage('system'),
     systemPageZonesClicked: systemPageZonesClicked,
     zonesRouted: changePage('zones'),

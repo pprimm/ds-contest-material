@@ -48,6 +48,9 @@ function DeepstreamHubProviderFactory (options = {}) {
       dsClient: () => client,
       action: (event, data) => {
         client.event.emit(event,data)
+      },
+      login: (props) => {
+        console.info(props)
       }
     }
   }

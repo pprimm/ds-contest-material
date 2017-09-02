@@ -5,16 +5,18 @@ import {state} from 'cerebral/tags'
 
 import SystemPage from './pages/system'
 import ZonesPage from './pages/zones'
+import LoginPage from './pages/login'
 
 const pages = {
   system: SystemPage,
-  zones: ZonesPage
+  zones: ZonesPage,
+  login: LoginPage
 }
 
 export default connect({
   pageRequest: state`app.pageRequest`
 }, 
-  function App({online, pageRequest}) {
+  function App({pageRequest}) {
     const Page = pages[pageRequest]
 
     return (
