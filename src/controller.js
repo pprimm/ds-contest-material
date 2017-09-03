@@ -3,7 +3,6 @@ import deepstream from './deepstreamhub-provider'
 import app from './modules/app'
 import system from './modules/system'
 import zones from './modules/zones'
-import router from './router'
 
 const Devtools = (
   process.env.NODE_ENV === 'production' ? null : require('cerebral/devtools').default 
@@ -21,8 +20,7 @@ export default Controller({
   modules: {
     app: app,
     system: system,
-    zones: zones,
-    router
+    zones: zones
   },
   providers: [
     deepstream({

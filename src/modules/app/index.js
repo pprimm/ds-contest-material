@@ -1,14 +1,13 @@
-import {set} from 'cerebral/operators'
-import {state} from 'cerebral/tags'
+// yes...it's a little freaky.  No imports becuase everything this module needs is injected by Cerebral
 
 function dsUpdate({router, state, props}) {
   console.info(props)
   if (props.hasOwnProperty('online')) {
     state.set('app.online', props.online)
     if (props.online) {
-      router.goTo('/system')
+      state.set('app.pageRequest','system')
     } else {
-      router.goTo('/')
+      state.set('app.pageRequest','login')
     }
   }
 }
@@ -17,19 +16,12 @@ function loginClicked({deepstream, props}) {
   deepstream.login(props)
 }
 
-function changePage (page, continueSequence = []) {
-  return [
-    set(state`app.pageRequest`, page),
-    continueSequence
-  ]
+function systemPageZonesClicked({state}) {
+  state.set('app.pageRequest','zones')
 }
 
-function systemPageZonesClicked({router}) {
-  router.goTo('/zones')
-}
-
-function zonesPageBackClicked({router}) {
-  router.goTo('/system')
+function zonesPageBackClicked({state}) {
+  state.set('app.pageRequest','system')
 }
 
 const filternames = [
@@ -56,10 +48,7 @@ export default {
   signals: {
     dsUpdate: dsUpdate,
     loginClicked: loginClicked,
-    loginRouted: changePage('login'),
-    systemRouted: changePage('system'),
     systemPageZonesClicked: systemPageZonesClicked,
-    zonesRouted: changePage('zones'),
     zonesPageBackClicked: zonesPageBackClicked,
     zonesPageTabClicked: zonesPageTabClicked
   }
