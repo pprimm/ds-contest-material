@@ -8,9 +8,6 @@ import {
   Typography
 } from 'material-ui'
 
-import {connect} from 'cerebral/react'
-import {signal} from 'cerebral/tags'
-
 function LoginTitleBar({zonesClicked,classes}) {
   return (
     <div className={classes.root}>
@@ -29,7 +26,7 @@ function LoginTitleBar({zonesClicked,classes}) {
   )
 }
 
-SystemTitleBar.propTypes = {
+LoginTitleBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -47,6 +44,4 @@ const styles = {
   }
 }
 
-export default connect({
-  zonesClicked: signal`app.systemPageZonesClicked`
-}, withStyles(styles)(SystemTitleBar))
+export default withStyles(styles)(LoginTitleBar)
