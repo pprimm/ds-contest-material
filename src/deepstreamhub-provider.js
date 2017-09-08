@@ -1,6 +1,5 @@
 import createDeepstream from 'deepstream.io-client-js'
-
-const DEEPSTREAM_URL = 'wss://013.deepstreamhub.com?apiKey=12821441-678c-487f-b33c-f2fdbe2da9da'
+import dsCredentials from './dsCredentials.js'
 
 // We create a factory, allowing you to pass in options to it
 function DeepstreamHubProviderFactory (options = {}) {
@@ -16,7 +15,7 @@ function DeepstreamHubProviderFactory (options = {}) {
     const updateZones = context.controller.getSignal('zones.dsUpdate')
     const updateApp = context.controller.getSignal('app.dsUpdate')
     
-    const client = createDeepstream(DEEPSTREAM_URL)
+    const client = createDeepstream(dsCredentials.url)
 
     client.on('connectionStateChanged', state => {
       console.info(state)
@@ -26,7 +25,7 @@ function DeepstreamHubProviderFactory (options = {}) {
       console.error(error, event, topic)
     })
 
-    client.login((success, data) => {
+    client.login(dsCredentials.authParams, (success, data) => {
       if (success) {
         console.info('login success')
         updateApp({online: true})

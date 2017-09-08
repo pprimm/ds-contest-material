@@ -1,5 +1,5 @@
 ## What is this?
-This project is a submission to the [deepstreamHub Contest, Sept. 2017](https://www.collaborizm.com/thread/r1lTSRXSZ).  It is a realtime mobile UI demo demonstrating how to use the deepstream JavaScript client to interact with a home security system through deepstreamHub.  The companion project (LINK HERE) is a security system simulator that demonstrates how to create a *provider* for deepstreamHub using NodeJS and the same deepstream JavaScript client as the UI.
+This project is a submission to the [deepstreamHub Contest, Sept. 2017](https://www.collaborizm.com/thread/r1lTSRXSZ).  It is a realtime mobile UI demo demonstrating how to use the deepstream JavaScript client to interact with a home security system through deepstreamHub.  The [companion project](https://github.com/pprimm/ds-contest-provider) is a security system simulator that demonstrates how to create a *provider* for deepstreamHub using NodeJS and the same deepstream JavaScript client as the UI.
 
 ![System Page](https://user-images.githubusercontent.com/4693314/29977696-eb7ba126-8f03-11e7-8981-8d2a6194b7b7.png)
 
