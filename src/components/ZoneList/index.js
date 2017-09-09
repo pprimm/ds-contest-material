@@ -22,10 +22,11 @@ const ZoneListItem = connect({
   name: state`zones.${props`id`}.name`,
   status: state`zones.${props`id`}.status`,
   bypass: state`zones.${props`id`}.bypass`,
+  zonePressed: signal`zones.zonePressed`,
   bypassPressed: signal`zones.bypassPressed`
-}, function NewZoneListItem({id, name, status, bypass,bypassPressed}) {
+}, function NewZoneListItem({id, name, status, bypass, zonePressed, bypassPressed}) {
   return (
-    <ListItem>
+    <ListItem onClick={() => zonePressed({id:id})}>
       <ListItemText
         primary={`${id} - ${name}`}
         secondary={bypass ? `${status} (Bypassed)` : status}

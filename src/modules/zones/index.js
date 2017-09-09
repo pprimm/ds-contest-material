@@ -1,4 +1,5 @@
 const ZONE_BYPASS_EVENT = 'zones/toggleBypass'
+const TOGGLE_STATUS_EVENT = 'zones/toggleStatus'
 
 function dsUpdate({state, props}) {
   //console.info(props)
@@ -7,9 +8,14 @@ function dsUpdate({state, props}) {
   }
 }
 
-function bypassPressed({deepstream, props}) {
+function bypassZone({deepstream, props}) {
   //console.info(props)
   deepstream.action(ZONE_BYPASS_EVENT,props)
+}
+
+function toggleZone({deepstream, props}) {
+  console.info(props)
+  deepstream.action(TOGGLE_STATUS_EVENT,props)
 }
 
 export default {
@@ -18,6 +24,7 @@ export default {
   },
   signals: {
     dsUpdate: dsUpdate,
-    bypassPressed: bypassPressed
+    zonePressed: toggleZone,
+    bypassPressed: bypassZone
   }
 }
