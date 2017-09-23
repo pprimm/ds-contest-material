@@ -2,9 +2,7 @@ import React from 'react'
 import {connect} from 'cerebral/react'
 import {state, signal, props} from 'cerebral/tags'
 
-import PropTypes from 'prop-types'
 import {
-  withStyles,
   Divider
  } from 'material-ui'
 import List, {
@@ -14,6 +12,7 @@ import List, {
 } from 'material-ui/List'
 
 import Switch from 'material-ui/Switch'
+import styled from 'styled-components'
 import filteredZoneIds from '../../computed/filteredZoneIds'
 
 
@@ -38,9 +37,16 @@ const ZoneListItem = connect({
   )
 })
 
-function ZoneList({filtered,classes}) {
+const ZoneListWrapper = styled.div`
+  width: 100%;
+  text-align: left;
+`
+
+export default connect({
+  filtered: filteredZoneIds,
+}, function ZoneList({filtered,classes}) {
   return (
-    <div className={classes.root}>
+    <ZoneListWrapper>
       <List>
         {
           filtered.map((id) => (
@@ -51,22 +57,6 @@ function ZoneList({filtered,classes}) {
           ))
         }        
       </List>
-    </div>
+    </ZoneListWrapper>
   )
-}
-
-ZoneList.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-const zoneListStyles = theme => ({
-  root: {
-    width: '100%',
-    background: theme.palette.background.paper,
-    textAlign: 'left'
-  }
 })
-
-export default connect({
-  filtered: filteredZoneIds,
-}, withStyles(zoneListStyles)(ZoneList))

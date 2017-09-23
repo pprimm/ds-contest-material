@@ -1,9 +1,6 @@
 import React from 'react'
 import FilterTabBar from '../../components/FilterTabBar'
-
-import PropTypes from 'prop-types'
 import {
-  withStyles,
   AppBar,
   Toolbar,
   Typography,
@@ -12,47 +9,38 @@ import {
 
 import {connect} from 'cerebral/react'
 import {signal} from 'cerebral/tags'
+import styled from 'styled-components'
 
-function ZonesTitleBar({backClicked,classes}) {
+const ZoneTitleWrapper = styled.div`
+  text-align: left;
+  margin-top: 50px;
+  witdh: 100%;
+`
+const ZoneAppBar = styled(AppBar)`
+  position: fixed;
+  top: 0px
+`
+const TitleText = styled(Typography)`
+  flex: 1;
+`
+
+export default connect({
+  backClicked: signal`app.zonesPageBackClicked`
+}, function ZonesTitleBar({backClicked,classes}) {
   return (
-    <div className={classes.root}>
-      <AppBar 
-        style={{ position: 'fixed', top: 0 }}
-        className="header"
-      >
-        <div className={classes.positioning}></div>
+    <ZoneTitleWrapper>
+      <ZoneAppBar className="header">
+
         <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex}>
+          <TitleText type="title" color="inherit">
             Alarm Zones List
-          </Typography>
+          </TitleText>
           <Button color="contrast" onClick={() => backClicked()}>
             Back
           </Button>
         </Toolbar>
         <FilterTabBar />
-      </AppBar>
-    </div>
+      </ZoneAppBar>
+    </ZoneTitleWrapper>
   )
-}
-
-ZonesTitleBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const styles = {
-  root: {
-    textAlign: 'left',
-    marginTop: 70,
-    width: '100%'
-  },
-  flex: {
-    flex: 1,
-  },
-  positioning: {
-    height: 15
-  }
-}
-
-export default connect({
-  backClicked: signal`app.zonesPageBackClicked`
-}, withStyles(styles)(ZonesTitleBar))
+})

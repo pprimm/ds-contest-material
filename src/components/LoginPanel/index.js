@@ -5,36 +5,56 @@ import {
   Button,
   TextField
  } from 'material-ui'
+import styled from 'styled-components'
+
+const FormWrapper = styled.div`
+  padding: 25px;
+`
+
+const LoginForm = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30;
+`
+
+const LoginField = styled(TextField)`
+  width: 100%;
+`
+
+const Spacer = styled.p`
+  padding: 1px;
+`
+
+const LoginButton = styled(Button)`
+  width: 100%;
+`
 
 export default connect({
   loginClicked: signal`app.loginClicked`
 }, function LoginPanel({classes,loginClicked}) {
   return (
-    <div>
-      <form style={{display: 'flex', flexWrap: 'wrap'}} noValidate>
-        <TextField
+    <FormWrapper>
+      <LoginForm noValidate>
+        <LoginField
           id='name'
-          label='Name'
-          style={{marginLeft: 20,marginRight: 20,width: '100%',}}
+          label='User Name'
           value={''}
           margin="normal"
         />
-        <TextField
+        <LoginField
           id='password'
           label='Password'
-          style={{marginLeft: 20,marginRight: 20,width: '100%',}}
           value={''}
           margin="normal"
         />
-      </form>
-      <div style={{margin: 20}}>
-        <Button style={{width: '100%'}}
-          raised color="primary"
-          onClick={() => loginClicked({user: 'xyz', password: 'xyz123'})}
-        >
-          Login
-        </Button>
-      </div>
-    </div>
+      </LoginForm>
+      <Spacer />
+      <LoginButton
+        raised color="primary"
+        onClick={() => loginClicked({user: 'xyz', password: 'xyz123'})}
+      >
+        Login
+      </LoginButton>
+    </FormWrapper>
   )
 })

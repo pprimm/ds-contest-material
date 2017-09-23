@@ -1,18 +1,19 @@
 import React from 'react'
 import {Divider} from 'material-ui'
+import AppWrapper from '../../components/AppWrapper'
 import LoginTitleBar from '../../components/LoginTitleBar'
 import StatusPanel from '../../components/StatusPanel'
 import LoginPanel from '../../components/LoginPanel'
 
-export default function SystemPage() { 
+export default function LoginPage() { 
   return (
-    <div className="App">
+    <AppWrapper>
       <LoginTitleBar />
       <div>
         <StatusPanel />
         <LoginPanel />
         <Divider />
       </div>
-    </div>
+    </AppWrapper>
   )
 }

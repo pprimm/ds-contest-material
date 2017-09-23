@@ -1,16 +1,19 @@
 import React from 'react'
 import {connect} from 'cerebral/react'
 import {state, signal} from 'cerebral/tags'
-import PropTypes from 'prop-types'
 import Tabs, { Tab } from 'material-ui/Tabs'
-import {
-  withStyles
- } from 'material-ui'
+import styled from 'styled-components'
 
+const TabBarWrapper = styled.div`
+  background-color: white;
+`
 
-function FilterTabBar({zoneTabIndex,tabClicked,classes}) {
+ export default connect({
+  zoneTabIndex: state`app.zoneTabIndex`,
+  tabClicked: signal`app.zonesPageTabClicked`
+}, function FilterTabBar({zoneTabIndex,tabClicked,classes}) {
   return (
-    <div className={classes.root}>
+    <TabBarWrapper>
       <Tabs
         value={zoneTabIndex}
         onChange={(event, value) => tabClicked({tabIndex: value})}
@@ -23,21 +26,6 @@ function FilterTabBar({zoneTabIndex,tabClicked,classes}) {
         <Tab label="Trouble" />
         <Tab label="Bypass" />
       </Tabs>
-    </div>
+    </TabBarWrapper>
   )
-}
-
-FilterTabBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const styles = theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper
-  }
 })
-
-export default connect({
-  zoneTabIndex: state`app.zoneTabIndex`,
-  tabClicked: signal`app.zonesPageTabClicked`
-}, withStyles(styles)(FilterTabBar))
