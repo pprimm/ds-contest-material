@@ -4,7 +4,14 @@ import {state, signal} from 'cerebral/tags'
 import {
   Button
  } from 'material-ui'
+import styled from 'styled-components'
 
+const ButtonWrapper = styled.div`
+  margin: 20px;
+`
+const SystemButton = styled(Button)`
+  width: 100%;
+`
 export default connect({
   systemReady: state`system.status.ready`,
   systemState: state`system.status.state`,
@@ -16,33 +23,33 @@ export default connect({
 
   return (
     <div>
-      <div style={{margin: 20}}>
-        <Button style={{width: '100%'}}
+      <ButtonWrapper>
+        <SystemButton
           raised color="primary"
           onClick={() => armAwayClicked({code: '1234'})}
           disabled={isArmed(systemState) || !systemReady}
         >
           Arm Away
-        </Button>
-      </div>
-      <div style={{margin: 20}}>
-        <Button style={{width: '100%'}}
+        </SystemButton>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <SystemButton
           raised color="primary"
           onClick={() => armStayClicked({code: '1234'})}
           disabled={isArmed(systemState) || !systemReady}
         >
           Arm Stay
-        </Button>
-      </div>
-      <div style={{margin: 20}}>
-        <Button style={{width: '100%'}}
+        </SystemButton>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <SystemButton
           raised color="accent"
           onClick={() => disarmClicked({code: '1234'})}
           disabled={!isArmed(systemState)}
         >
           disarm
-        </Button>
-      </div>
+        </SystemButton>
+      </ButtonWrapper>
     </div>
   )
 })

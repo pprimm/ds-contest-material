@@ -1,47 +1,35 @@
 import React from 'react'
-
-import PropTypes from 'prop-types'
 import {
-  withStyles,
   AppBar,
   Toolbar,
   Typography
 } from 'material-ui'
+import styled from 'styled-components'
 
-function LoginTitleBar({zonesClicked,classes}) {
+const LoginWrapper = styled.div`
+  text-align: left;
+  margin-top: 50px;
+  witdh: 100%;
+`
+const LoginAppBar = styled(AppBar)`
+  position: fixed;
+  top: 0px
+`
+
+const TitleText = styled(Typography)`
+  flex: 1;
+`
+
+export default function LoginTitleBar({zonesClicked}) {
   return (
-    <div className={classes.root}>
-      <AppBar 
-        style={{ position: 'fixed', top: 0 }}
-        className="header"
-      >
-        <div className={classes.positioning}></div>
+    <LoginWrapper>
+      <LoginAppBar>
         <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex}>
+          <TitleText type="title" color="inherit">
             System Login
-          </Typography>
+          </TitleText>
         </Toolbar>
-      </AppBar>
-    </div>
+      </LoginAppBar>
+    </LoginWrapper>
   )
 }
-
-LoginTitleBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const styles = {
-  root: {
-    textAlign: 'left',
-    marginTop: 60,
-    width: '100%'
-  },
-  flex: {
-    flex: 1,
-  },
-  positioning: {
-    height: 15
-  }
-}
-
-export default withStyles(styles)(LoginTitleBar)

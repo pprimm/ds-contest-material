@@ -1,10 +1,7 @@
 import React from 'react'
 import {connect} from 'cerebral/react'
 import {state} from 'cerebral/tags'
-
-import PropTypes from 'prop-types'
 import {
-  withStyles,
   Divider
  } from 'material-ui'
 import List, {
@@ -13,6 +10,7 @@ import List, {
   ListItemText,
   ListSubheader
 } from 'material-ui/List'
+import styled from 'styled-components'
 import HighlightOffIcon from 'material-ui-icons/HighlightOff'
 import CheckCircleIcon from 'material-ui-icons/CheckCircle'
 import RemoveCircleIcon from 'material-ui-icons/RemoveCircle'
@@ -57,34 +55,26 @@ const BypassListItem = ({count}) => (
   </ListItem>
 )
 
-function createStatusList({openZones, troubleZones, bypassZones, classes}) {
+const ListWrapper = styled.div`
+  width: 100%;
+  max-width: 360px;
+  background: white;
+  text-align: left;
+`
+
+export default connect({
+  openZones: state`system.alerts.openZones`,
+  troubleZones: state`system.alerts.troubleZones`,
+  bypassZones: state`system.alerts.bypassZones`
+}, function StatusList({openZones, troubleZones, bypassZones, classes}) {
   return (
-    <div className={classes.root}>
+    <ListWrapper>
       <List subheader={<ListSubheader>Zone Status Summary</ListSubheader>}>
         <OpenListItem count={openZones} />
         <TroubleListItem count={troubleZones} />
         <BypassListItem count={bypassZones} />
       </List>
       <Divider />
-    </div>
+    </ListWrapper>
   )
-}
-
-createStatusList.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-const statusListStyles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    background: theme.palette.background.paper,
-    textAlign: 'left'
-  }
 })
-  
-export default connect({
-    openZones: state`system.alerts.openZones`,
-    troubleZones: state`system.alerts.troubleZones`,
-    bypassZones: state`system.alerts.bypassZones`
-}, withStyles(statusListStyles)(createStatusList))

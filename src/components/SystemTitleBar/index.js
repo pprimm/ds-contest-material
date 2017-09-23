@@ -1,8 +1,6 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
 import {
-  withStyles,
   AppBar,
   Toolbar,
   Typography,
@@ -11,46 +9,36 @@ import {
 
 import {connect} from 'cerebral/react'
 import {signal} from 'cerebral/tags'
+import styled from 'styled-components'
 
-function SystemTitleBar({zonesClicked,classes}) {
+const SystemTitleWrapper = styled.div`
+  text-align: left;
+  margin-top: 50px;
+  witdh: 100%;
+`
+const SystemAppBar = styled(AppBar)`
+  position: fixed;
+  top: 0px
+`
+const TitleText = styled(Typography)`
+  flex: 1;
+`
+
+export default connect({
+  zonesClicked: signal`app.systemPageZonesClicked`
+}, function SystemTitleBar({zonesClicked,classes}) {
   return (
-    <div className={classes.root}>
-      <AppBar 
-        style={{ position: 'fixed', top: 0 }}
-        className="header"
-      >
-        <div className={classes.positioning}></div>
+    <SystemTitleWrapper>
+      <SystemAppBar className="header">
         <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex}>
+          <TitleText type="title" color="inherit">
             Alarm System
-          </Typography>
+          </TitleText>
           <Button color="contrast" onClick={() => zonesClicked()}>
             Zones
           </Button>
         </Toolbar>
-      </AppBar>
-    </div>
+      </SystemAppBar>
+    </SystemTitleWrapper>
   )
-}
-
-SystemTitleBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const styles = {
-  root: {
-    textAlign: 'left',
-    marginTop: 60,
-    width: '100%'
-  },
-  flex: {
-    flex: 1,
-  },
-  positioning: {
-    height: 15
-  }
-}
-
-export default connect({
-  zonesClicked: signal`app.systemPageZonesClicked`
-}, withStyles(styles)(SystemTitleBar))
+})
