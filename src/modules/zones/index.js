@@ -1,10 +1,19 @@
 const ZONE_BYPASS_EVENT = 'zones/toggleBypass'
 const TOGGLE_STATUS_EVENT = 'zones/toggleStatus'
 
-function dsUpdate({state, props}) {
+function dsUpdateZones({state, props}) {
   //console.info(props)
   if (props.zones) {
     state.merge('zones', props.zones)
+  }
+}
+
+function dsUpdateZone({state, props}) {
+  //console.info(props)
+  if (props.zoneID && props.zoneData) {
+    const path = `zones.${props.zoneID}`
+    //console.log({path: path, data: props.zoneData})
+    state.set(path, props.zoneData)
   }
 }
 
@@ -23,7 +32,8 @@ export default {
     Z01: { name: 'unavailable', status: 'disconnected', bypass: false }
   },
   signals: {
-    dsUpdate: dsUpdate,
+    dsUpdateZones: dsUpdateZones,
+    dsUpdateZone: dsUpdateZone,
     zonePressed: toggleZone,
     bypassPressed: bypassZone
   }
