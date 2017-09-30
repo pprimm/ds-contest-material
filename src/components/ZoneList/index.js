@@ -15,6 +15,14 @@ import Switch from 'material-ui/Switch'
 import styled from 'styled-components'
 import filteredZoneIds from '../../computed/filteredZoneIds'
 
+const listItemColors = {
+  Open: '#ffffcc',
+  Trouble: '#ffd6cc'
+}
+
+const ListItemWrapper = styled.div`
+  background-color: ${props => listItemColors[props.zoneStatus] || 'white'};
+`
 
 const ZoneListItem = connect({
   id: props`id`,
@@ -25,15 +33,17 @@ const ZoneListItem = connect({
   bypassPressed: signal`zones.bypassPressed`
 }, function NewZoneListItem({id, name, status, bypass, zonePressed, bypassPressed}) {
   return (
-    <ListItem onClick={() => zonePressed({id:id})}>
-      <ListItemText
-        primary={`${id} - ${name}`}
-        secondary={bypass ? `${status} (Bypassed)` : status}
-      />
-      <ListItemSecondaryAction>
-        <Switch checked={bypass} onChange={() => bypassPressed({id: id})}/>
-      </ListItemSecondaryAction>
-    </ListItem>
+    <ListItemWrapper zoneStatus={status}>
+      <ListItem onClick={() => zonePressed({id:id})}>
+        <ListItemText
+          primary={`${id} - ${name}`}
+          secondary={bypass ? `${status} (Bypassed)` : status}
+        />
+        <ListItemSecondaryAction>
+          <Switch checked={bypass} onChange={() => bypassPressed({id: id})}/>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </ListItemWrapper>
   )
 })
 
