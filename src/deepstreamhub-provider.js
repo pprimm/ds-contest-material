@@ -1,22 +1,22 @@
 import createDeepstream from 'deepstream.io-client-js'
-import dsCredentials from './dsCredentials.js'
 
 // We create a factory, allowing you to pass in options to it
 function DeepstreamHubProviderFactory (options = {}) {
   //console.info('DeepstreamHubProviderFactory() called')
   // We use a variable to cache the created provider
   let cachedProvider = null
+  const dsURL = options.url
+  const dsAuth = options.authParams
 
   // This is the function that creates the provider,
   // typically just an object with some methods
   function createProvider (context) {
     //console.info('createProvider() called')
     const updateSystem = context.controller.getSignal('system.dsUpdate')
-    const updateZones = context.controller.getSignal('zones.dsUpdateZones')
     const updateZone = context.controller.getSignal('zones.dsUpdateZone')
     const updateApp = context.controller.getSignal('app.dsUpdate')
     
-    const client = createDeepstream(dsCredentials.url)
+    const client = createDeepstream(dsURL)
 
     client.on('connectionStateChanged', state => {
       console.info(state)
@@ -26,7 +26,7 @@ function DeepstreamHubProviderFactory (options = {}) {
       console.error(error, event, topic)
     })
 
-    client.login(dsCredentials.authParams, (success, data) => {
+    client.login(dsAuth, (success, data) => {
       if (success) {
         console.info('login success')
         updateApp({online: true})
@@ -37,17 +37,13 @@ function DeepstreamHubProviderFactory (options = {}) {
         const zones = client.record.getRecord('test/zones')
         zones.whenReady(record => {
           const recordData = record.get()
-          //updateZones({zones: data})
-          const keys = Object.keys(recordData)
-          keys.map( (id) => {
+          Object.keys(recordData).map( (id) => {
             record.subscribe(id, data => {
               //console.info({zoneID: id, zoneData: data})
               updateZone({zoneID: id, zoneData: data})
             },true)
+            return true
           })
-          //record.subscribe( (data) => {
-          //  updateZones({zones: data})
-          //}, true)
         })
       } else {
         // notify user

@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'cerebral/react'
 import {state, signal, props} from 'cerebral/tags'
-
 import {
   Divider
  } from 'material-ui'
@@ -10,7 +9,6 @@ import List, {
   ListItemText,
   ListItemSecondaryAction
 } from 'material-ui/List'
-
 import Switch from 'material-ui/Switch'
 import styled from 'styled-components'
 import filteredZoneIds from '../../computed/filteredZoneIds'
@@ -25,22 +23,22 @@ const ListItemWrapper = styled.div`
 `
 
 const ZoneListItem = connect({
-  id: props`id`,
-  name: state`zones.${props`id`}.name`,
-  status: state`zones.${props`id`}.status`,
-  bypass: state`zones.${props`id`}.bypass`,
+  //name: state`zones.${props`id`}.name`,
+  //status: state`zones.${props`id`}.status`,
+  //bypass: state`zones.${props`id`}.bypass`,
+  zone: state`zones.${props`id`}`,
   zonePressed: signal`zones.zonePressed`,
   bypassPressed: signal`zones.bypassPressed`
-}, function NewZoneListItem({id, name, status, bypass, zonePressed, bypassPressed}) {
+}, function ZoneListItem({id, zone, zonePressed, bypassPressed}) {
   return (
-    <ListItemWrapper zoneStatus={status}>
+    <ListItemWrapper zoneStatus={zone.status}>
       <ListItem onClick={() => zonePressed({id:id})}>
         <ListItemText
-          primary={`${id} - ${name}`}
-          secondary={bypass ? `${status} (Bypassed)` : status}
+          primary={`${id} - ${zone.name}`}
+          secondary={zone.bypass ? `${zone.status} (Bypassed)` : zone.status}
         />
         <ListItemSecondaryAction>
-          <Switch checked={bypass} onChange={() => bypassPressed({id: id})}/>
+          <Switch checked={zone.bypass} onChange={() => bypassPressed({id: id})}/>
         </ListItemSecondaryAction>
       </ListItem>
     </ListItemWrapper>

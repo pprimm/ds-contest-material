@@ -23,14 +23,12 @@ function bypassZone({deepstream, props}) {
 }
 
 function toggleZone({deepstream, props}) {
-  console.info(props)
+  //console.info(props)
   deepstream.action(TOGGLE_STATUS_EVENT,props)
 }
 
 export default {
-  state: {
-    Z01: { name: 'unavailable', status: 'disconnected', bypass: false }
-  },
+  state: {},
   signals: {
     dsUpdateZones: dsUpdateZones,
     dsUpdateZone: dsUpdateZone,

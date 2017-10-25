@@ -11,7 +11,7 @@ const TabBarWrapper = styled.div`
  export default connect({
   zoneTabIndex: state`app.zoneTabIndex`,
   tabClicked: signal`app.zonesPageTabClicked`
-}, function FilterTabBar({zoneTabIndex,tabClicked,classes}) {
+}, function FilterTabBar({zoneTabIndex,tabClicked}) {
   return (
     <TabBarWrapper>
       <Tabs

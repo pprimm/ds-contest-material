@@ -1,16 +1,11 @@
 import React from 'react'
-import './App.css'
 import {connect} from 'cerebral/react'
 import {state} from 'cerebral/tags'
 
-import SystemPage from './pages/system'
-import ZonesPage from './pages/zones'
-import LoginPage from './pages/login'
-
 const pages = {
-  system: SystemPage,
-  zones: ZonesPage,
-  login: LoginPage
+  system: require('./pages/system').default,
+  zones: require('./pages/zones').default,
+  login: require('./pages/login').default
 }
 
 export default connect({
@@ -18,9 +13,6 @@ export default connect({
 }, 
   function App({pageRequest}) {
     const Page = pages[pageRequest]
-
-    return (
-      <Page />
-    )
+    return (<Page />)
   }
 )

@@ -3,18 +3,17 @@ import ZonesTitleBar from '../../components/ZonesTitleBar'
 import ZoneList from '../../components/ZoneList'
 import styled from 'styled-components'
 
-const Positioner = styled.div`
-  height: 48px
+const ZoneListWrapper = styled.div`
+  margin-top: 100px
 `
 
 export default function ZonesPage() { 
   return (
     <div>
       <ZonesTitleBar />
-      <Positioner />
-      <div>
+      <ZoneListWrapper>
         <ZoneList />
-      </div>
+      </ZoneListWrapper>
     </div>
   )
 }

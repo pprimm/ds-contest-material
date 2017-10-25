@@ -18,7 +18,7 @@ export default connect({
   armAwayClicked: signal`system.armAwayClicked`,
   armStayClicked: signal`system.armStayClicked`,
   disarmClicked: signal`system.disarmClicked`
-}, function NewButtonPanel({systemReady,systemState,armAwayClicked, armStayClicked, disarmClicked}) {
+}, function SystemButtonPanel({systemReady,systemState,armAwayClicked, armStayClicked, disarmClicked}) {
   const isArmed = state => state !== 'Not Armed'
 
   return (

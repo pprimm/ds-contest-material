@@ -35,12 +35,7 @@ export default {
     display: [
       'Initializing...',
       ''
-    ],
-    alerts: {
-      openZones: 0,
-      troubleZones: 0,
-      bypassZones: 0
-    }
+    ]
   },
   signals: {
     dsUpdate: dsUpdate,
