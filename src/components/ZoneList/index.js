@@ -46,6 +46,7 @@ const ZoneListItem = connect({
 })
 
 const ZoneListWrapper = styled.div`
+  margin-top: 98px;
   width: 100%;
   text-align: left;
 `

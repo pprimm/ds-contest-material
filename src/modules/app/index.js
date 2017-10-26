@@ -1,4 +1,5 @@
-// yes...it's a little freaky.  No imports becuase everything this module needs is injected by Cerebral
+import { set } from 'cerebral/operators'
+import { props, state } from 'cerebral/tags'
 
 function dsUpdate({router, state, props}) {
   console.info(props)
@@ -31,11 +32,8 @@ const filternames = [
   'bypass'
 ]
 
-function zonesPageTabClicked({state,props}) {
-  //console.info(props)
-  state.set('app.zoneTabIndex', props.tabIndex)
-  state.set('app.filter', filternames[props.tabIndex])
-  //set(state`app.filter`, props.tabIndex)
+function getFilterName({props}) {
+  props.filterName = filternames[props.tabIndex]
 }
 
 export default {
@@ -50,6 +48,10 @@ export default {
     loginClicked: loginClicked,
     systemPageZonesClicked: systemPageZonesClicked,
     zonesPageBackClicked: zonesPageBackClicked,
-    zonesPageTabClicked: zonesPageTabClicked
+    zonesPageTabClicked: [
+      set(state`app.zoneTabIndex`, props`tabIndex`),
+      getFilterName,
+      set(state`app.filter`, props`filterName`)
+    ]
   }
 }
